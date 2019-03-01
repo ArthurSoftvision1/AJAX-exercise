@@ -11,9 +11,20 @@ xhr.onreadystatechange = function() {
     if(xhr.readyState == 4 && xhr.statusText == "OK" && xhr.status == 200) {
         console.log('Data is ready');
         console.log(xhr.responseText);
+        let data = JSON.parse(xhr.responseText);
+        outputData(data);
     }
 }
 
 xhr.open('GET', url);
 
 xhr.send();
+
+
+function outputData(data) {
+  
+   data.people.forEach(function(element) {
+       console.log(element);
+       output.innerHTML += element.firstName + " " + element.lastName + '<br>';
+   })
+}
