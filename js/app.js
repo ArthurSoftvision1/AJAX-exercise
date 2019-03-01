@@ -24,11 +24,8 @@ function loadData() {
 
 function outputData(data) {
   
-   console.log(data);
    data.map((item) => {
-       console.log(item)
        let img = item.picture.medium;
        output.innerHTML += '<img src="'+img+'">';
-   })
-
+   });
 }
