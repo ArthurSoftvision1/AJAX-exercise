@@ -1,30 +1,34 @@
 let output = document.querySelector('#output');
+let btn = document.querySelector('input');
+btn.addEventListener('click', loadData);
 
-let url = 'https://api.myjson.com/bins/r094m';
+let url = 'https://randomuser.me/api/?results=50';
 
-let xhr = new XMLHttpRequest();
+function loadData() {
+    let xhr = new XMLHttpRequest();
 
-console.log(xhr);
+    xhr.onreadystatechange = function() {
+    
+        if(xhr.readyState == 4 && xhr.status == 200) {
 
-xhr.onreadystatechange = function() {
-    console.log(xhr.readyState);
-    if(xhr.readyState == 4 && xhr.statusText == "OK" && xhr.status == 200) {
-        console.log('Data is ready');
-        console.log(xhr.responseText);
-        let data = JSON.parse(xhr.responseText);
-        outputData(data);
+            let data = JSON.parse(xhr.responseText);
+
+            outputData(data.results);
+        }
     }
+
+    xhr.open('GET', url);
+
+    xhr.send();
 }
-
-xhr.open('GET', url);
-
-xhr.send();
-
 
 function outputData(data) {
   
-   data.people.forEach(function(element) {
-       console.log(element);
-       output.innerHTML += element.firstName + " " + element.lastName + '<br>';
+   console.log(data);
+   data.map((item) => {
+       console.log(item)
+       let img = item.picture.medium;
+       output.innerHTML += '<img src="'+img+'">';
    })
+
 }
